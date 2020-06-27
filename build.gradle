@@ -1,9 +1,7 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.3.72'
+    id 'maven-publish'
 }
-
-group 'com.elevenets.utils.kotlin.math'
-version '0.1.0'
 
 repositories {
     mavenCentral()
@@ -18,4 +16,36 @@ compileKotlin {
 }
 compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId "com.elevenetc"
+            artifactId "utils.kotlin.math"
+            version '0.1.0'
+            from components.java
+
+            pom {
+                name = "Kotlin math utils"
+                description = "Set of math util classes and functions in Kotlin"
+                url = "https://github.com/elevenetc/utils-kotlin-math"
+                licenses {
+                    license {
+                        name = "The Apache License, Version 2.0"
+                        url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                    }
+                }
+                developers {
+                    developer {
+                        id = "com.elevenetc"
+                        name = "Eugene Levenetc"
+                    }
+                }
+                scm {
+                    url = "https://github.com/elevenetc/utils-kotlin-math.git"
+                }
+            }
+        }
+    }
 }
