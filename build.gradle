@@ -19,6 +19,16 @@ compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
 
+task sourcesJar(type: Jar) {
+    archiveClassifier.set("sources")
+    from sourceSets.main.allJava
+}
+
+task javadocJar(type: Jar) {
+    archiveClassifier.set('javadoc')
+    from javadoc.destinationDir
+}
+
 publishing {
 
     repositories {
@@ -39,7 +49,10 @@ publishing {
             groupId "com.elevenetc"
             artifactId "utils.kotlin.math"
             version '0.1.0'
+
             from components.java
+            artifact sourcesJar
+            artifact javadocJar
 
             pom {
                 name = "Kotlin math utils"
@@ -58,6 +71,8 @@ publishing {
                     }
                 }
                 scm {
+                    connection = "scm:git:https://github.com/elevenetc/utils-kotlin-math.git"
+                    developerConnection = "scm:git:https://github.com/elevenetc/utils-kotlin-math.git"
                     url = "https://github.com/elevenetc/utils-kotlin-math.git"
                 }
             }
@@ -65,10 +80,7 @@ publishing {
     }
 }
 
-task sourcesJar(type: Jar) {
-    from sourceSets.main.allJava
-    archiveClassifier.set("sources")
-}
+
 
 signing {
     useInMemoryPgpKeys(getProp('PGP_SIGNING_KEY'), getProp('PGP_SIGNING_PASSWORD'))
