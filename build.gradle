@@ -1,6 +1,7 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.3.72'
     id 'maven-publish'
+    id 'signing'
 }
 
 repositories {
@@ -19,6 +20,20 @@ compileTestKotlin {
 }
 
 publishing {
+
+    repositories {
+        maven {
+            name = "MavenCentral"
+            def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots"
+            def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+            url = uri(version.toString().endsWith("SNAPSHOT") ? snapshotsRepoUrl : releasesRepoUrl)
+            credentials {
+                username = getProp('MAVEN_UPLOAD_USER')
+                password = getProp('MAVEN_UPLOAD_PWD')
+            }
+        }
+    }
+
     publications {
         maven(MavenPublication) {
             groupId "com.elevenetc"
@@ -48,4 +63,14 @@ publishing {
             }
         }
     }
+}
+
+signing {
+    useInMemoryPgpKeys(getProp('PGP_SIGNING_KEY'), getProp('PGP_SIGNING_PASSWORD'))
+    sign(publishing.publications["maven"])
+}
+
+def getProp(name) {
+    if (project.hasProperty(name)) return project.property(name)
+    else return ""
 }
