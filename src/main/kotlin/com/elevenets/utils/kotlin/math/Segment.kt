@@ -58,7 +58,7 @@ open class Segment {
         //TODO: cache/optimize
         val xSide = x2 - x1
         val ySide = y2 - y1
-        return Math.sqrt(xSide * xSide + ySide * ySide)
+        return kotlin.math.sqrt(xSide * xSide + ySide * ySide)
     }
 
     fun slope(): Double {

@@ -1,6 +1,10 @@
 package com.elevenets.utils.kotlin.math
 
+import java.lang.Math.PI
+import java.lang.Math.toRadians
 import java.util.*
+import kotlin.math.cos
+import kotlin.math.sin
 import kotlin.math.sqrt
 
 
@@ -14,9 +18,9 @@ internal class MathImpl : Math {
         cy: Double,
         degrees: Double
     ) {
-        val rads = Math.toRadians(degrees)
-        val cos = Math.cos(rads)
-        val sin = Math.sin(rads)
+        val rads = toRadians(degrees)
+        val cos = cos(rads)
+        val sin = sin(rads)
 
         //move to origin
         segment!!.x1 -= cx
@@ -38,9 +42,9 @@ internal class MathImpl : Math {
     }
 
     override fun rotate(segment: Segment?, degrees: Double) {
-        val rads = Math.toRadians(degrees)
-        val cos = Math.cos(rads)
-        val sin = Math.sin(rads)
+        val rads = toRadians(degrees)
+        val cos = cos(rads)
+        val sin = sin(rads)
 
         //move to origin
         segment!!.x2 -= segment!!.x1
@@ -102,9 +106,9 @@ internal class MathImpl : Math {
         ax1: Double, ay1: Double, ax2: Double, ay2: Double,
         bx1: Double, by1: Double, bx2: Double, by2: Double
     ): Double {
-        val angleA = Math.atan2(ay1 - ay2, ax1 - ax2)
-        val angleB = Math.atan2(by1 - by2, bx1 - bx2)
-        return (angleB - angleA) * 180 / Math.PI
+        val angleA = kotlin.math.atan2(ay1 - ay2, ax1 - ax2)
+        val angleB = kotlin.math.atan2(by1 - by2, bx1 - bx2)
+        return (angleB - angleA) * 180 / PI
     }
 
     override fun isReflectedByNormalAndIntersection(
@@ -166,7 +170,7 @@ internal class MathImpl : Math {
 
         //TODO: use cached list
         val intersections: MutableList<Intersection?> = LinkedList()
-        var intersection:Intersection? = null
+        var intersection: Intersection? = null
 
         //get all intersection edges with array
         for (obj in scene!!.objects) for (edge in obj.edges) {
@@ -318,7 +322,7 @@ internal class MathImpl : Math {
     }
 
     private fun doubleEquals(a: Double, b: Double): Boolean {
-        val diff = Math.abs(a - b)
+        val diff = kotlin.math.abs(a - b)
         return diff <= doubleEqualityEps
     }
 }
