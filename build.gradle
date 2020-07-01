@@ -81,8 +81,15 @@ publishing {
 }
 
 signing {
-    useInMemoryPgpKeys(getProp('PGP_SIGNING_KEY'), getProp('PGP_SIGNING_PASSWORD'))
-    sign publishing.publications.maven
+    def key = getProp('PGP_SIGNING_KEY')
+    def pwd = getProp('PGP_SIGNING_PASSWORD')
+
+    required { key.length() > 0 }
+
+    if(key.length() > 0){
+        useInMemoryPgpKeys(key, pwd)
+        sign publishing.publications.maven
+    }
 }
 
 def getProp(name) {
