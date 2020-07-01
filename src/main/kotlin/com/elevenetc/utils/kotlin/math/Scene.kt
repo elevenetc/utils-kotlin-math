@@ -1,4 +1,4 @@
-package com.elevenets.utils.kotlin.math
+package com.elevenetc.utils.kotlin.math
 
 import java.util.*
 

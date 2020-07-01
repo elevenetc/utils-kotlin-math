@@ -1,4 +1,4 @@
-package com.elevenets.utils.kotlin.math
+package com.elevenetc.utils.kotlin.math
 
 import java.lang.Math.PI
 import java.lang.Math.toRadians
@@ -8,19 +8,19 @@ import kotlin.math.sin
 import kotlin.math.sqrt
 
 
-internal class MathImpl : Math {
+internal class ElevenMathImpl : ElevenMath {
 
-    private val doubleEqualityEps = 0.0001
+    private val FloatEqualityEps = 0.0001
 
     override fun rotate(
         segment: Segment?,
-        cx: Double,
-        cy: Double,
-        degrees: Double
+        cx: Float,
+        cy: Float,
+        degrees: Float
     ) {
-        val rads = toRadians(degrees)
-        val cos = cos(rads)
-        val sin = sin(rads)
+        val rads = toRadians(degrees.toDouble())
+        val cos = cos(rads).toFloat()
+        val sin = sin(rads).toFloat()
 
         //move to origin
         segment!!.x1 -= cx
@@ -41,8 +41,8 @@ internal class MathImpl : Math {
         segment.y2 = y2 + cy
     }
 
-    override fun rotate(segment: Segment?, degrees: Double) {
-        val rads = toRadians(degrees)
+    override fun rotate(segment: Segment?, degrees: Float) {
+        val rads = toRadians(degrees.toDouble()).toFloat()
         val cos = cos(rads)
         val sin = sin(rads)
 
@@ -62,16 +62,16 @@ internal class MathImpl : Math {
     override fun dotProduct(
         a: Segment?,
         b: Segment?
-    ): Double {
+    ): Float {
         val aOrigin = toOrigin(a)
         val bOrigin = toOrigin(b)
         return aOrigin.x2 * bOrigin.x2 + aOrigin.y2 * bOrigin.y2
     }
 
     override fun dotProduct(
-        x1: Double, y1: Double, x2: Double, y2: Double,
-        x3: Double, y3: Double, x4: Double, y4: Double
-    ): Double {
+        x1: Float, y1: Float, x2: Float, y2: Float,
+        x3: Float, y3: Float, x4: Float, y4: Float
+    ): Float {
         //move to origin
         var x1 = x1
         var y1 = y1
@@ -83,19 +83,19 @@ internal class MathImpl : Math {
         var y4 = y4
         x2 = x2 - x1
         y2 = y2 - y1
-        x1 = 0.0
-        y1 = 0.0
+        x1 = 0.0f
+        y1 = 0.0f
         x4 = x4 - x3
         y4 = y4 - y3
-        x3 = 0.0
-        y3 = 0.0
+        x3 = 0.0f
+        y3 = 0.0f
         return x2 * x4 + y2 * y4
     }
 
     override fun angleBetween(
         a: Segment?,
         b: Segment?
-    ): Double {
+    ): Float {
         return angleBetween(
             a!!.x1, a.y1, a.x2, a.y2,
             b!!.x1, b.y1, b.x2, b.y2
@@ -103,12 +103,12 @@ internal class MathImpl : Math {
     }
 
     override fun angleBetween(
-        ax1: Double, ay1: Double, ax2: Double, ay2: Double,
-        bx1: Double, by1: Double, bx2: Double, by2: Double
-    ): Double {
+        ax1: Float, ay1: Float, ax2: Float, ay2: Float,
+        bx1: Float, by1: Float, bx2: Float, by2: Float
+    ): Float {
         val angleA = kotlin.math.atan2(ay1 - ay2, ax1 - ax2)
         val angleB = kotlin.math.atan2(by1 - by2, bx1 - bx2)
-        return (angleB - angleA) * 180 / PI
+        return ((angleB - angleA) * 180 / PI).toFloat()
     }
 
     override fun isReflectedByNormalAndIntersection(
@@ -154,11 +154,11 @@ internal class MathImpl : Math {
     }
 
     override fun distance(
-        x1: Double,
-        y1: Double,
-        x2: Double,
-        y2: Double
-    ): Double {
+        x1: Float,
+        y1: Float,
+        x2: Float,
+        y2: Float
+    ): Float {
         var x1 = x1
         var y1 = y1
         x1 -= x2
@@ -182,7 +182,7 @@ internal class MathImpl : Math {
         } else if (intersections.size == 1) {
             return intersections[0]
         }
-        var minDist = Double.MAX_VALUE
+        var minDist = Float.MAX_VALUE
 
         //get all intersection points and take closest
         for (i in intersections) {
@@ -212,7 +212,7 @@ internal class MathImpl : Math {
     }
 
     override fun getIntersection(
-        x1: Double, y1: Double, x2: Double, y2: Double,
+        x1: Float, y1: Float, x2: Float, y2: Float,
         b: RaySegment?
     ): Point {
         return getIntersection(x1, y1, x2, y2, b!!.x1, b.y1, b.x2, b.y2)
@@ -252,8 +252,8 @@ internal class MathImpl : Math {
     }
 
     override fun getIntersection(
-        x1: Double, y1: Double, x2: Double, y2: Double,
-        x3: Double, y3: Double, x4: Double, y4: Double
+        x1: Float, y1: Float, x2: Float, y2: Float,
+        x3: Float, y3: Float, x4: Float, y4: Float
     ): Point {
         val d = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4)
         val x = ((x3 - x4) * (x1 * y2 - y1 * x2) - (x1 - x2) * (x3 * y4 - y3 * x4)) / d
@@ -262,8 +262,8 @@ internal class MathImpl : Math {
     }
 
     override fun hasIntersection(
-        x1: Double, y1: Double, x2: Double, y2: Double,
-        x3: Double, y3: Double, x4: Double, y4: Double
+        x1: Float, y1: Float, x2: Float, y2: Float,
+        x3: Float, y3: Float, x4: Float, y4: Float
     ): Boolean {
         return (relativeCCW(x1, y1, x2, y2, x3, y3) *
                 relativeCCW(x1, y1, x2, y2, x4, y4) <= 0
@@ -276,16 +276,16 @@ internal class MathImpl : Math {
         val diffY = segment.y1
 
         //TODO: cache instance
-        return RaySegment(0.0, 0.0, segment.x2 - diffX, segment.y2 - diffY)
+        return RaySegment(0.0f, 0.0f, segment.x2 - diffX, segment.y2 - diffY)
     }
 
     /**
      * From java.awt.geom.Java2D
      */
     private fun relativeCCW(
-        x1: Double, y1: Double,
-        x2: Double, y2: Double,
-        px: Double, py: Double
+        x1: Float, y1: Float,
+        x2: Float, y2: Float,
+        px: Float, py: Float
     ): Int {
         var x2 = x2
         var y2 = y2
@@ -296,14 +296,14 @@ internal class MathImpl : Math {
         px -= x1
         py -= y1
         var ccw = px * y2 - py * x2
-        if (ccw == 0.0) {
+        if (ccw == 0.0f) {
             ccw = px * x2 + py * y2
             if (ccw > 0.0) {
                 px -= x2
                 py -= y2
                 ccw = px * x2 + py * y2
-                if (ccw < 0.0) {
-                    ccw = 0.0
+                if (ccw < 0.0f) {
+                    ccw = 0.0f
                 }
             }
         }
@@ -311,18 +311,18 @@ internal class MathImpl : Math {
     }
 
     private fun pointAtEnds(
-        px: Double,
-        py: Double,
-        x1: Double,
-        y1: Double,
-        x2: Double,
-        y2: Double
+        px: Float,
+        py: Float,
+        x1: Float,
+        y1: Float,
+        x2: Float,
+        y2: Float
     ): Boolean {
-        return doubleEquals(px, x1) && doubleEquals(py, y1) || doubleEquals(px, x2) && doubleEquals(py, y2)
+        return FloatEquals(px, x1) && FloatEquals(py, y1) || FloatEquals(px, x2) && FloatEquals(py, y2)
     }
 
-    private fun doubleEquals(a: Double, b: Double): Boolean {
+    private fun FloatEquals(a: Float, b: Float): Boolean {
         val diff = kotlin.math.abs(a - b)
-        return diff <= doubleEqualityEps
+        return diff <= FloatEqualityEps
     }
 }

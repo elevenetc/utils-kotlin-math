@@ -1,6 +1,6 @@
-package com.elevenets.utils.kotlin.math
+package com.elevenetc.utils.kotlin.math
 
-import com.elevenets.utils.kotlin.math.Segment.Direction.*
+import com.elevenetc.utils.kotlin.math.Segment.Direction.*
 
 
 class Edge : Segment() {
@@ -8,7 +8,7 @@ class Edge : Segment() {
     private val left = Side()
     private val right = Side()
 
-    override fun set(x1: Double, y1: Double, x2: Double, y2: Double) {
+    override fun set(x1: Float, y1: Float, x2: Float, y2: Float) {
         super.set(x1, y1, x2, y2)
         //Recalculate normals
         if (left.hasNormal()) left.normal = leftNormal
@@ -42,16 +42,16 @@ class Edge : Segment() {
     }
 
     val rightNormal: Normal
-        get() = getNormal(-50.0)
+        get() = getNormal(-50.0f)
 
     val leftNormal: Normal
-        get() = getNormal(50.0)
+        get() = getNormal(50.0f)
 
-    private fun getNormal(lengthAndDirection: Double): Normal {
+    private fun getNormal(lengthAndDirection: Float): Normal {
         val normal = Normal()
         val direction = direction()
-        normal.x1 = (x1 + x2) / 2.0
-        normal.y1 = (y1 + y2) / 2.0
+        normal.x1 = (x1 + x2) / 2.0f
+        normal.y1 = (y1 + y2) / 2.0f
         if (direction === N) {
             normal.x2 = normal.x1 - lengthAndDirection
             normal.y2 = normal.y1
@@ -66,7 +66,7 @@ class Edge : Segment() {
             normal.y2 = normal.y1 + lengthAndDirection
         } else {
             val s = -1 / slope()
-            val b: Double = -s * normal.x1 + normal.y1
+            val b: Float = -s * normal.x1 + normal.y1
             val normalSide = if (direction === NE) {
                 normal.x1 - lengthAndDirection
             } else if (direction === SE) {

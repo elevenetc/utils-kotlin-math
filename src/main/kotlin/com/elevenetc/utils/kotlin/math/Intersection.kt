@@ -1,4 +1,4 @@
-package com.elevenets.utils.kotlin.math
+package com.elevenetc.utils.kotlin.math
 
 class Intersection {
     var point: Point? = null

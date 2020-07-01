@@ -1,17 +1,17 @@
-package com.elevenets.utils.kotlin.math
+package com.elevenetc.utils.kotlin.math
 
 open class Segment {
     var name: String? = null
-    var x1 = 0.0
-    var y1 = 0.0
-    var x2 = 0.0
-    var y2 = 0.0
+    var x1 = 0.0f
+    var y1 = 0.0f
+    var x2 = 0.0f
+    var y2 = 0.0f
 
-    constructor(x1: Double, y1: Double, x2: Double, y2: Double) {
+    constructor(x1: Float, y1: Float, x2: Float, y2: Float) {
         set(x1, y1, x2, y2)
     }
 
-    constructor(start: RaySegment, x2: Double, y2: Double) {
+    constructor(start: RaySegment, x2: Float, y2: Float) {
         set(start.x1, start.y1, x2, y2)
     }
 
@@ -21,14 +21,14 @@ open class Segment {
 
     constructor() {}
 
-    fun translate(dx: Double, dy: Double) {
+    fun translate(dx: Float, dy: Float) {
         x1 += dx
         x2 += dx
         y1 += dy
         y2 += dy
     }
 
-    fun translateEnd(dx2: Double, dy2: Double) {
+    fun translateEnd(dx2: Float, dy2: Float) {
         x2 += dx2
         y2 += dy2
     }
@@ -39,7 +39,7 @@ open class Segment {
         translate(xDiff, yDiff)
     }
 
-    open operator fun set(x1: Double, y1: Double, x2: Double, y2: Double) {
+    open operator fun set(x1: Float, y1: Float, x2: Float, y2: Float) {
         this.x1 = x1
         this.y1 = y1
         this.x2 = x2
@@ -51,17 +51,17 @@ open class Segment {
         val origX = x2 - x1
         val origY = y2 - y1
         //TODO: cache inst
-        return Segment(0.0, 0.0, origX / length, origY / length)
+        return Segment(0.0f, 0.0f, origX / length, origY / length)
     }
 
-    fun length(): Double {
+    fun length(): Float {
         //TODO: cache/optimize
         val xSide = x2 - x1
         val ySide = y2 - y1
         return kotlin.math.sqrt(xSide * xSide + ySide * ySide)
     }
 
-    fun slope(): Double {
+    fun slope(): Float {
         //TODO: cache/optimize
         return (y2 - y1) / (x2 - x1)
     }
