@@ -80,11 +80,9 @@ publishing {
     }
 }
 
-
-
 signing {
+    sign publishing.publications.maven
     useInMemoryPgpKeys(getProp('PGP_SIGNING_KEY'), getProp('PGP_SIGNING_PASSWORD'))
-    sign(publishing.publications["maven"])
 }
 
 def getProp(name) {
