@@ -2,16 +2,16 @@ package com.elevenetc.utils.kotlin.math
 
 interface ElevenMath {
     fun rotate(
-        segment: Segment?,
+        vector: Vector?,
         cx: Float,
         cy: Float,
         degrees: Float
     )
 
-    fun rotate(segment: Segment?, degrees: Float)
+    fun rotate(vector: Vector?, degrees: Float)
     fun dotProduct(
-        a: Segment?,
-        b: Segment?
+        a: Vector?,
+        b: Vector?
     ): Float
 
     fun dotProduct(
@@ -20,8 +20,8 @@ interface ElevenMath {
     ): Float
 
     fun angleBetween(
-        a: Segment?,
-        b: Segment?
+        a: Vector?,
+        b: Vector?
     ): Float
 
     fun angleBetween(
@@ -30,23 +30,23 @@ interface ElevenMath {
     ): Float
 
     fun isReflectedByNormalAndIntersection(
-        ray: Segment?,
+        ray: Vector?,
         edge: Edge?
     ): Intersection?
 
-    fun getIntersectionByNormal(ray: Segment?, edge: Edge?): Intersection?
+    fun getIntersectionByNormal(ray: Vector?, edge: Edge?): Intersection?
     fun distance(x1: Float, y1: Float, x2: Float, y2: Float): Float
 
-    fun getClosestIntersection(ray: RaySegment?, scene: Scene?): Intersection?
-    fun getIntersection(a: RaySegment?, b: Edge?): Point?
+    fun getClosestIntersection(ray: RayVector?, scene: Scene?): Intersection?
+    fun getIntersection(a: RayVector?, b: Edge?): Point?
     fun getIntersection(
         x1: Float, y1: Float, x2: Float, y2: Float,
-        b: RaySegment?
+        b: RayVector?
     ): Point
 
     fun getIntersectionPointWithEndsCheck(
-        a: Segment?,
-        b: Segment?
+        a: Vector?,
+        b: Vector?
     ): Point?
 
     fun getIntersection(
@@ -58,6 +58,28 @@ interface ElevenMath {
         x1: Float, y1: Float, x2: Float, y2: Float,
         x3: Float, y3: Float, x4: Float, y4: Float
     ): Boolean
+
+    fun toRadians(angle: Float): Float
+
+    /**
+     * Rotates point around circle with radius 1 with given [angle]
+     * [point] size must be >= 2. First 2 values are filled with x and y respectively
+     *
+     *         y
+     *         1
+     *         |
+     *         |
+     * -1 ------------1 x
+     *         |
+     *         |
+     *        -1
+     *
+     */
+    fun rotatePoint(angle: Float, point: Array<Float>)
+
+    fun round(value: Float, precision: Int): Float
+
+    fun round(array: Array<Float>, precision: Int)
 
     companion object {
         fun create(): ElevenMath {
