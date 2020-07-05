@@ -1,6 +1,7 @@
 package com.elevenetc.utils.kotlin.math
 
-class RaySegment : Segment {
+class RayVector : Vector {
+
     var startAlpha = 0f
     var endAlpha = 0f
     var color = 0
@@ -9,9 +10,9 @@ class RaySegment : Segment {
     var start = 0.0
     var end = 0.0
 
-    constructor(segment: Segment) : this(segment.x1, segment.y1, segment.x2, segment.y2)
+    constructor(vector: Vector) : this(vector.x1, vector.y1, vector.x2, vector.y2)
     constructor(x1: Float, y1: Float, x2: Float, y2: Float) : super(x1, y1, x2, y2)
-    constructor(start: RaySegment, x2: Float, y2: Float) : super(start.x1, start.y1, x2, y2)
+    constructor(start: RayVector, x2: Float, y2: Float) : super(start.x1, start.y1, x2, y2)
     constructor(start: Point, end: Point) : super(start.x, start.y, end.x, end.y)
 
     constructor() {}
@@ -25,8 +26,8 @@ class RaySegment : Segment {
                 '}'
     }
 
-    fun copy(): RaySegment {
-        val copy = RaySegment(x1, y1, x2, y2)
+    fun copy(): RayVector {
+        val copy = RayVector(x1, y1, x2, y2)
         copy.color = color
         copy.start = start
         copy.end = end

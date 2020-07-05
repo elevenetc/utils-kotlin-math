@@ -1,9 +1,9 @@
 package com.elevenetc.utils.kotlin.math
 
-import com.elevenetc.utils.kotlin.math.Segment.Direction.*
+import com.elevenetc.utils.kotlin.math.Vector.Direction.*
 
 
-class Edge : Segment() {
+class Edge : Vector() {
 
     private val left = Side()
     private val right = Side()

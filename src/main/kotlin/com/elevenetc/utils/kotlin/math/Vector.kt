@@ -1,6 +1,6 @@
 package com.elevenetc.utils.kotlin.math
 
-open class Segment {
+open class Vector {
     var name: String? = null
     var x1 = 0.0f
     var y1 = 0.0f
@@ -11,7 +11,7 @@ open class Segment {
         set(x1, y1, x2, y2)
     }
 
-    constructor(start: RaySegment, x2: Float, y2: Float) {
+    constructor(start: RayVector, x2: Float, y2: Float) {
         set(start.x1, start.y1, x2, y2)
     }
 
@@ -46,12 +46,12 @@ open class Segment {
         this.y2 = y2
     }
 
-    fun normalized(): Segment {
+    fun normalized(): Vector {
         val length = length()
         val origX = x2 - x1
         val origY = y2 - y1
         //TODO: cache inst
-        return Segment(0.0f, 0.0f, origX / length, origY / length)
+        return Vector(0.0f, 0.0f, origX / length, origY / length)
     }
 
     fun length(): Float {
