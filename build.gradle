@@ -10,6 +10,8 @@ repositories {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    testImplementation "junit:junit:4.13"
+    testImplementation "org.assertj:assertj-core:3.16.1"
 }
 
 compileKotlin {
@@ -48,7 +50,7 @@ publishing {
         maven(MavenPublication) {
             groupId "com.elevenetc"
             artifactId "utils.kotlin.math"
-            version '0.1.0'
+            version '0.2.0'
 
             from components.java
             artifact sourcesJar
@@ -86,7 +88,7 @@ signing {
 
     required { key.length() > 0 }
 
-    if(key.length() > 0){
+    if (key.length() > 0) {
         useInMemoryPgpKeys(key, pwd)
         sign publishing.publications.maven
     }
